@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.server.dao.OrderDao">
+
+    <!--create a new order-->
+    <insert id="createNewOrder" parameterType="Order" keyProperty="t_id" useGeneratedKeys="true">
+        insert into Default_.transports (uid, origin, destination, open_time, close_time, covid_test,
+                                         covid_test_customs, covid_test_delay, order_state)
+        values (#{uId}, #{origin}, #{destination}, #{openTime}, #{closeTime}, #{passCovidTest}, #{covidTestCustom},
+                #{covidTestDuration}, #{orderState})
+    </insert>
+
+    <select id="getOrder" parameterType="int" resultType="Order">
+        select t_id,
+               uid                uId,
+               origin,
+               destination,
+               open_time          openTime,
+               close_time         closeTime,
+               covid_test         passCovidTest,
+               covid_test_customs covidTestCustom,
+               covid_test_delay   covidTestDuration,
+               order_state        orderState
+        from Default_.transports
+        where t_id = #{tId}
+
+
+    </select>
+
+    <update id="setCloseTime" parameterType="map">
+        update Default_.transports
+        set close_time = #{closeTime}
+        where t_id = #{tId}
+    </update>
+
+    <update id="setOrderState" parameterType="map">
+        update Default_.transports
+        set order_state = #{orderState}
+        where t_id = #{tId}
+    </update>
+
+
+</mapper>
