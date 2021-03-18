@@ -26,4 +26,15 @@ create table Default_.transports
 alter table Default_.transports change column state order_state int;
 
 //查找所有的订单信息
-select * from Default_.transports;
+select *
+from Default_.transports;
+
+//运输中上报log
+create table Default_.transports_logs
+(
+    t_id        int,
+    cur_place   varchar(50),
+    temperature int,
+    cur_time    datetime,
+    primary key (t_id, cur_time)
+);
